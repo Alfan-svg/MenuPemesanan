@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu Makan — Modern</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#6e6eff;
+      --muted:#555554;
+      --card-bg: rgba(255,255,255,0.85);
+    }
+    body{
+      background: linear-gradient(135deg, #c29454 0%, #ad9ffc 25%, #4442d6 50%, #f6f998 75%, #f6e86b 100%);
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:3rem 1rem;
+    }
+    .hero{
+      display:flex;gap:1rem;align-items:center;justify-content:space-between;
+      margin-bottom:1.5rem;
+    }
+    .hero .title{font-weight:700;letter-spacing:-0.5px}
+    .hero .subtitle{color:var(--muted);font-size:0.95rem}
+
+    .chips .btn{
+      border-radius:999px;
+      padding:0.35rem 0.9rem;
+      font-weight:600;
+    }
+
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+
+    .menu-card{
+      position:relative;
+      border-radius:16px;
+      padding:0.85rem;
+      background:var(--card-bg);
+      box-shadow:0 8px 24px rgba(16,24,40,0.06);
+      transition:transform .35s cubic-bezier(.2,.9,.3,1),box-shadow .35s;
+      backdrop-filter: blur(6px);
+    }
+    .menu-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 18px 40px rgba(16,24,40,0.12)}
+
+    .menu-img{
+      height:140px;border-radius:12px;overflow:hidden;display:block;box-shadow:0 6px 22px rgba(16,24,40,0.06)
+    }
+    .menu-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .menu-body{padding:0.6rem 0}
+    .menu-title{font-weight:700;margin:0}
+    .menu-desc{color:var(--muted);font-size:0.9rem;margin-top:0.2rem}
+
+    .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.6rem}
+    .price{font-weight:800;font-size:1.05rem;color:#0f172a}
+    .badge-veg{background:#E6F9EA;color:#176E3A;border-radius:8px;padding:0.25rem 0.5rem;font-weight:700}
+
+    .btn-add{border-radius:12px;padding:0.4rem 0.7rem}
+
+    .float-badge{position:absolute;right:12px;top:12px;background:linear-gradient(90deg,var(--accent),#FF8A7A);color:white;padding:0.4rem 0.6rem;border-radius:10px;font-weight:700;box-shadow:0 8px 18px rgba(255,107,107,0.18)}
+
+    .reveal{opacity:0;transform:translateY(18px) scale(.995);transition:all .6s cubic-bezier(.2,.9,.3,1)}
+    .reveal.in-view{opacity:1;transform:none}
+
+    .chips .btn.active{background:var(--accent);color:white;border-color:transparent}
+
+    @media (max-width:576px){
+      .hero{flex-direction:column;align-items:flex-start;gap:0.5rem}
+      .menu-img{height:120px}
+    }
+    .contact-section a{
+        font-size: 30px;
+        text-decoration: none;
+        color: #101111;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div>
+        <h1 class="title">Mie Ayam Pemalang <small class="text-muted">- Pilihan Menu</small></h1>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input id="search" class="form-control" placeholder="Cari menu..." aria-label="Cari menu">
+        </div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div class="chips">
+        <button class="btn btn-outline-secondary btn-sm active" data-filter="all">Semua</button>
+        <button class="btn btn-outline-secondary btn-sm" data-filter="main">Mie Ayam</button>
+        <button class="btn btn-outline-secondary btn-sm" data-filter="makanan">Bakso</button>
+      </div>
+      <div>
+        <button id="toggleGrid" class="btn btn-light btn-sm"><i class="bi bi-layout-grid"></i> Tampilan</button>
+      </div>
+    </div>
+    <div id="menu" class="menu-grid">
+      <article class="menu-card reveal" data-type="main">
+        <a class="menu-img" href="#">
+          <img src="img/Mie Ayam.jpg" alt="Mie Ayam">
+        </a>
+        <div class="menu-body">
+          <h3 class="menu-title">Mie Ayam</h3>
+          <p class="menu-desc">Mie ayam gurih dengan potongan ayam berbumbu manis gurih, disajikan dengan kuah hangat dan sayuran segar.</p>
+          <div class="price-row">
+            <div>
+              <div class="price">Rp14.000</div>
+              <div class="badge-veg mt-1">Populer</div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-type="main">
+        <a class="menu-img" href="#">
+          <img src="img/yamin.jpg" alt="Mie Ayam">
+        </a>
+        <div class="menu-body">
+          <h3 class="menu-title">Mie Ayam Yamin</h3>
+          <p class="menu-desc">Mie ayam yamin dengan tambahan kecap manis dan potongan ayam berbumbu manis gurih, disajikan dengan sayuran segar.</p>
+          <div class="price-row">
+            <div>
+              <div class="price">Rp14.000</div>
+              <div class="badge-veg mt-1">Populer</div>
+            </div>
+          </div>
+        </div>
+      </article>
+       <article class="menu-card reveal" data-type="main">
+        <a class="menu-img" href="#">
+          <img src="img/Mie ayam bakso.jpg" alt="Mie Ayam Bakso kecil">
+        </a>
+        <div class="menu-body">
+          <h3 class="menu-title">Mie Ayam Bakso Kecil</h3>
+          <p class="menu-desc">Mie ayam gurih dengan potongan ayam berbumbu manis gurih dengan tambahan 2 bakso kecil, disajikan dengan kuah hangat dan sayuran segar.</p>
+          <div class="price-row">
+            <div>
+              <div class="price">Rp17.000</div>
+              <div class="badge-veg mt-1">Populer</div>
+            </div>
+          </div>
+        </div>
+      </article>
+       </article>
+       <article class="menu-card reveal" data-type="main">
+        <a class="menu-img" href="#">
+          <img src="img/mie bakso besar .jpg" alt="Mie Ayam Bakso Besar">
+        </a>
+        <div class="menu-body">
+          <h3 class="menu-title">Mie Ayam Bakso Besar</h3>
+          <p class="menu-desc">Mie ayam dengan potongan ayam manis dan gurih dengan tambahan 1 bakso besar, disajikan dengan kuah hangat dan sayuran segar.</p>
+          <div class="price-row">
+            <div>
+              <div class="price">Rp22.000</div>
+              <div class="badge-veg mt-1">Populer</div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-type="makanan">
+        <a class="menu-img" href="#">
+            <img src="img/bakso mantul.jpg" alt="Bakso Komplit">
+        </a>
+        <div class="menu-body">
+            <h3 class="menu-title">Bakso Komplit</h3>
+            <p class="menu-desc">Bakso sapi kenyal dengan cita rasa gurih, disajikan dengan 1 bakso besar, 3 bakso kecil,1 tahu bakso dan kuah kaldu hangat yang kaya rasa, lengkap dengan mie, sayuran segar, dan taburan bawang goreng yang harum.</p>
+            <div class="price-row">
+                <div>
+                    <div class="price">Rp17.000</div>
+                    <div class="badge-veg mt-1">Populer</div>
+                </div>
+            </div>
+        </div>
+      </article>
+       <article class="menu-card reveal" data-type="makanan">
+        <a class="menu-img" href="#">
+            <img src="img/bakso telor.jpg" alt="Bakso Komplit">
+        </a>
+        <div class="menu-body">
+            <h3 class="menu-title">Bakso Telur</h3>
+            <p class="menu-desc">Bakso sapi kenyal dengan berisikan telur, disajikan dengan 1 bakso besar, 3 bakso kecil,1 tahu bakso dan kuah kaldu hangat yang kaya rasa, lengkap dengan mie, sayuran segar, dan taburan bawang goreng yang harum.</p>
+            <div class="price-row">
+                <div>
+                    <div class="price">Rp18.000</div>
+                    <div class="badge-veg mt-1">Populer</div>
+                </div>
+            </div>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-type="makanan">
+        <a class="menu-img" href="#">
+            <img src="img/indomie bakso.jpg" alt="Bakso Komplit">
+        </a>
+        <div class="menu-body">
+            <h3 class="menu-title">Indomie Bakso</h3>
+            <p class="menu-desc">Indomie Soto dengan 1 bakso besar, 2 bakso kecil, 1 tahu bakso dan disajikan dengan kuah khas bumbu indomie, sayuran segar, dan taburan bawang goreng yang harum.</p>
+            <div class="price-row">
+                <div>
+                    <div class="price">Rp22.000</div>
+                    <div class="badge-veg mt-1">Populer</div>
+                </div>
+            </div>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-type="makanan">
+        <a class="menu-img" href="#">
+            <img src="img/indomie.jpg" alt="Bakso Komplit">
+        </a>
+        <div class="menu-body">
+            <h3 class="menu-title">Indomie Bakso</h3>
+            <p class="menu-desc">Indomie Soto dengan 4 bakso kecil dan disajikan dengan kuah khas bumbu indomie, sayuran segar, dan taburan bawang goreng yang harum.</p>
+            <div class="price-row">
+                <div>
+                    <div class="price">Rp17.000</div>
+                    <div class="badge-veg mt-1">Populer</div>
+                </div>
+            </div>
+        </div>
+      </article>
+    </div>
+    <section id="contact" class="contact-section py-5 text-center">
+      <div class="container">
+        <h2 class="fw-bold mb-3">Contact Pemesanan</h2>
+        <p class="text-muted mb-4">Silakan hubungi kami untuk pemesanan:</p>
+      </div>
+      <button>
+        <a href="https://wa.me/qr/SNXA4FKJQ4CYI1">Click Here</a>
+      </button>
+    </section>
+  </div>
+  <script>
+    const buttons = document.querySelectorAll('.chips .btn');
+    const cards = document.querySelectorAll('.menu-card');
+    const search = document.getElementById('search');
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(c => {
+        if(filter === 'all' || c.dataset.type === filter) c.style.display = '';
+        else c.style.display = 'none';
+      });
+    }));
+    search.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      cards.forEach(c => {
+        const title = c.querySelector('.menu-title').textContent.toLowerCase();
+        const desc = c.querySelector('.menu-desc').textContent.toLowerCase();
+        c.style.display = (title.includes(q)||desc.includes(q))? '': 'none';
+      });
+    });
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting) ent.target.classList.add('in-view');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    const toggle = document.getElementById('toggleGrid');
+    let compact = false;
+    toggle.addEventListener('click', ()=>{
+      compact = !compact;
+      document.getElementById('menu').style.gridTemplateColumns = compact ? 'repeat(auto-fit,minmax(180px,1fr))' : '';
+      toggle.innerHTML = compact ? '<i class="bi bi-list"></i> Ringkas' : '<i class="bi bi-layout-grid"></i> Tampilan';
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
